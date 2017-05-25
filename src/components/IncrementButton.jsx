@@ -1,4 +1,5 @@
 import {incrementCount} from '../ActionCreators';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 // Pure react component. Should not be connected to redux store; its container
@@ -13,6 +14,10 @@ class IncrementButton extends React.Component {
 
 function mapDispatchToProps(dispatch) {
     decrementCount: dispatch(decrementCount())
+}
+
+IncrementButton.PropTypes = {
+    incrementCount: PropTypes.func.isRequired
 }
 
 export const IncrementButtonContainer = connect(
