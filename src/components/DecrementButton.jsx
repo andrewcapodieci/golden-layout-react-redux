@@ -13,7 +13,7 @@ class DecrementButton extends React.Component {
 }
 
 DecrementButton.PropTypes = {
-    incrementCount: PropTypes.func.isRequired
+    decrementCount: PropTypes.func.isRequired
 }
 
 export const DecrementButtonContainer = connect(
