@@ -1,4 +1,6 @@
 # golden-layout-react-redux
+**Note: this is a work in progress...I haven't found a solution yet.**
+
 Minimal example showing how to link redux state to react components embedded within golden-layout.
 
 Run `npm install`, then `npm run dev` and point your browser to `localhost:8080` to run the example.
