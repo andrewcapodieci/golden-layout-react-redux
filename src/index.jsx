@@ -5,7 +5,7 @@ import reducer from './reducer';
 import {setState} from './ActionCreators';
 
 const store = createStore(reducer);
-store.dispatch(setState({ 'count': 0 })); 
+store.dispatch(setState({ 'count': 10 })); 
 
 ReactDOM.render(
     <Provider store={store}>

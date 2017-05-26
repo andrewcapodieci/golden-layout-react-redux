@@ -23,12 +23,12 @@ class GoldenLayoutWrapper extends React.Component {
             }]
         };
 
-        function wrapComponent(component, store) {
+        function wrapComponent(Component, store) {
             class Wrapped extends React.Component {
                 render() {
                     return (
                         <Provider store={store}>
-                            <component {...this.props}/>
+                            <Component {...this.props}/>
                         </Provider>
                     );
                 }
