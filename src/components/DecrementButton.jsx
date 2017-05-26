@@ -1,5 +1,3 @@
-// Pure react component. Should not be connected to redux store; its container
-// should be connected to the store.
 import {decrementCount} from '../ActionCreators';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -16,6 +14,13 @@ DecrementButton.PropTypes = {
     decrementCount: PropTypes.func.isRequired
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        decrementCount: () => dispatch(decrementCount())
+    };
+}
+
 export const DecrementButtonContainer = connect(
-    decrementCount
+    null,
+    mapDispatchToProps
 )(DecrementButton);
