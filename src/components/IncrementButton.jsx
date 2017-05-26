@@ -12,10 +12,6 @@ class IncrementButton extends React.Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    decrementCount: dispatch(decrementCount())
-}
-
 IncrementButton.PropTypes = {
     incrementCount: PropTypes.func.isRequired
 }
