@@ -1,5 +1,6 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import webpack from 'webpack';
 
 export default () => ({
     entry: [
@@ -14,6 +15,13 @@ export default () => ({
         new HtmlWebpackPlugin({
            filename: 'index.html',
            template: './src/index.html'
+        }),
+        // Necessary b/c golden-layout depends on all 3 of these libs via UMD globals
+        new webpack.ProvidePlugin({
+            React: 'react',
+            ReactDOM: 'react-dom',
+            $: 'jquery',
+            jQuery: 'jquery'
         })
     ],
     module: {
