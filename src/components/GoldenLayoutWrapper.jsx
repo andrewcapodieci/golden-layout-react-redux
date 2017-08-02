@@ -3,8 +3,33 @@ import {Provider} from 'react-redux';
 import {IncrementButtonContainer} from './IncrementButton';
 import {DecrementButtonContainer} from './DecrementButton';
 import {TestComponentContainer} from './TestComponent';
+import '../index.styl'
 
 class GoldenLayoutWrapper extends React.Component {
+    constructor(props) {
+        super(props);
+        this.setNode = this.setNode.bind(this);
+        this.updateDimensions=this.updateDimensions.bind(this);
+        this.state = {
+            ht:500,
+        }
+    }
+    setNode(node) {
+        this.node = node;
+    }
+    updateDimensions() {
+        if (this.node && this.myLayout) {
+            this.setState({
+                ht: $(window).height() - this.node.getBoundingClientRect().top-5,
+            });
+
+            this.myLayout.updateSize();
+        }
+    }
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions);
+    }
+
     componentDidMount() {
         // Build basic golden-layout config
         const config = {
@@ -36,7 +61,7 @@ class GoldenLayoutWrapper extends React.Component {
             return Wrapped;
         };
 
-        var layout = new GoldenLayout(config, '#goldenLayout');
+        var layout = new GoldenLayout(config, this.node);
         layout.registerComponent('IncrementButtonContainer', 
                                  wrapComponent(IncrementButtonContainer, this.context.store)
         );
@@ -47,11 +72,15 @@ class GoldenLayoutWrapper extends React.Component {
                                  wrapComponent(TestComponentContainer, this.context.store)
         );
         layout.init();
+
+        window.addEventListener("resize", this.updateDimensions);
+        this.myLayout=layout;
+        this.updateDimensions();
     }
 
     render() {
         return (
-            <div id="goldenLayout"/>
+            <div ref={this.setNode} style={{height:this.state.ht+'px'}}/>
         );
     }
 }
