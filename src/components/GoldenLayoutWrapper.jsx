@@ -23,7 +23,7 @@ class GoldenLayoutWrapper extends React.Component {
             }]
         };
 
-        function wrapComponent(Component, store) {
+        function wrapComponent(Component, store, container) {
             class Wrapped extends React.Component {
                 render() {
                     return (
@@ -33,12 +33,28 @@ class GoldenLayoutWrapper extends React.Component {
                     );
                 }
             }
+            const button = (
+                <button
+                    onClick={()=>console.log('clicked')}
+                >
+                    TestButton
+                </button>
+            );
+            if(container) {
+                container.on('tab', function(tab) {
+                    tab.element.append(button);
+                });
+            }
             return Wrapped;
         };
 
         var layout = new GoldenLayout(config, this.layout);
         layout.registerComponent('IncrementButtonContainer', 
-                                 wrapComponent(IncrementButtonContainer, this.context.store)
+            (containerAndEventHub) => {
+                const {glContainer} = containerAndEventHub;
+                console.log('containerAndEventHub:', containerAndEventHub);
+                return wrapComponent(IncrementButtonContainer, this.context.store, glContainer)
+            }
         );
         layout.registerComponent('DecrementButtonContainer',
                                  wrapComponent(DecrementButtonContainer, this.context.store)
