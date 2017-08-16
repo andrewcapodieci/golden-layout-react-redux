@@ -36,7 +36,7 @@ class GoldenLayoutWrapper extends React.Component {
             return Wrapped;
         };
 
-        var layout = new GoldenLayout(config, '#goldenLayout');
+        var layout = new GoldenLayout(config, this.layout);
         layout.registerComponent('IncrementButtonContainer', 
                                  wrapComponent(IncrementButtonContainer, this.context.store)
         );
@@ -47,11 +47,15 @@ class GoldenLayoutWrapper extends React.Component {
                                  wrapComponent(TestComponentContainer, this.context.store)
         );
         layout.init();
+
+        window.addEventListener('resize', () => {
+            layout.updateSize();
+        });
     }
 
     render() {
         return (
-            <div id="goldenLayout"/>
+            <div className='goldenLayout' ref={input => this.layout = input}/>
         );
     }
 }
